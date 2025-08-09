@@ -31,6 +31,7 @@ const cartSlice = createSlice({
       state,
       action: PayloadAction<{ product: Product; quantity: number; size: string }>
     ) => {
+      console.log("Adding item to cart:", action.payload);
       const { product, quantity, size } = action.payload;
       const sizeOption = product.options?.find((option) => option.title === size);
       const additionalPrice = sizeOption?.additionalPrice || 0;
