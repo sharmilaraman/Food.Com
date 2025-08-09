@@ -5,7 +5,8 @@ import Link from "next/link";
 import React from "react";
 import { useParams } from "next/navigation";
 import type { Product } from "@/data";
-import { useCart } from "@/context/CartContext";
+import { useDispatch } from "react-redux";
+import { addItem } from "@/redux/cartSlice";
 
 const CategoryPage = () => {
   const params = useParams();
@@ -20,7 +21,11 @@ const CategoryPage = () => {
     items = pastas;
   }
 
-  const { addItem } = useCart();
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (item: Product) => {
+    dispatch(addItem({ product: item, quantity: 1, size: "Small" }));
+  };
 
   return (
     <div className="flex flex-wrap text-red-500">
@@ -40,15 +45,20 @@ const CategoryPage = () => {
             <h2 className="group-hover:hidden text-xl">${item.price}</h2>
             <button
               className="hidden group-hover:block uppercase bg-red-500 text-white p-2 rounded-md"
-              onClick={() => addItem(item, 1, "Small")}
+              onClick={() => handleAddToCart(item)}
             >
               Add to Cart
             </button>
           </div>
         </div>
       ))}
-    </div>
-  );
+    </div>   
+
+
+
+
+
+  );  
 };
 
 export default CategoryPage;

@@ -4,7 +4,7 @@ import "./globals.css";
 import Notification from "@/components/notification";
 import Footer from "@/components/footer";
 import Navbar from "@/components/nav";
-import { CartProvider } from "@/context/CartContext";
+import Providers from "./Providers"; 
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,16 +28,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <body >
-      <CartProvider>
-        <div>
-          <Notification />
-          <Navbar />
-          {children}
-          <Footer />
-        </div>
-      </CartProvider>
-    </body>
-  </html>
+      <link rel="icon" href="/logo.avif" />
+      <body>
+        <Providers>
+          <div>
+            <Notification />
+            <Navbar />
+            {children}
+            <Footer />
+          </div>
+        </Providers>
+      </body>
+    </html>
   );
 }

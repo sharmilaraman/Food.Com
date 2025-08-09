@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useCart } from "@/context/CartContext";
+import { useDispatch } from "react-redux";
+import { addItem } from "@/redux/cartSlice";
 import { Product } from "@/data";
 
 type Props = {
@@ -15,7 +16,7 @@ const Price = ({ price, id, options, product }: Props) => {
   const [total, setTotal] = useState(price);
   const [quantity, setQuantity] = useState(1);
   const [selected, setSelected] = useState(0);
-  const { addItem } = useCart();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setTotal(
@@ -25,7 +26,7 @@ const Price = ({ price, id, options, product }: Props) => {
 
   const handleAddToCart = () => {
     const selectedSize = options ? options[selected].title : "Regular";
-    addItem(product, quantity, selectedSize);
+    dispatch(addItem({ product, quantity, size: selectedSize }));
   };
 
   return (
@@ -67,7 +68,7 @@ const Price = ({ price, id, options, product }: Props) => {
           </div>
         </div>
         {/* CART BUTTON */}
-        <button 
+        <button
           className="uppercase text-sm w-56 bg-red-500 text-white p-3 ring-1 ring-red-500 hover:bg-red-600 transition-colors"
           onClick={handleAddToCart}
         >

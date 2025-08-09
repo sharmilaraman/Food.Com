@@ -1,12 +1,12 @@
-"use client"
-import Link from 'next/link'
-import React from 'react'
-import Image from 'next/image'
-import { useCart } from '@/context/CartContext'
+"use client";
+import Link from "next/link";
+import React from "react";
+import Image from "next/image";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 const CartIcon = () => {
-  const { state } = useCart();
-  const itemCount = state.items.length;
+  const itemCount = useSelector((state: RootState) => state.cart.items.length);
 
   return (
     <Link href="/cart" className="flex items-center gap-2">
@@ -20,8 +20,7 @@ const CartIcon = () => {
       </div>
       <span>Cart({itemCount})</span>
     </Link>
-  )
-}
+  );
+};
 
-export default CartIcon
- 
+export default CartIcon;
