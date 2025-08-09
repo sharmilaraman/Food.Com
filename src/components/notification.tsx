@@ -1,11 +1,25 @@
 "use client";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
+import { setShowNotification } from "@/redux/cartSlice";
+import React from "react";
 
 export default function Notification() {
+  const dispatch = useDispatch();
   const showNotification = useSelector(
     (state: RootState) => state.cart.showNotification
   );
+
+  
+  React.useEffect(() => {
+    if (showNotification) {
+      const timer = setTimeout(() => {
+        dispatch(setShowNotification(false));
+      }, 3000); 
+
+      return () => clearTimeout(timer);
+    }
+  }, [showNotification, dispatch]);
 
   return (
     <>
