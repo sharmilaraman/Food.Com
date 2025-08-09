@@ -9,7 +9,8 @@ import { removeItem, updateQuantity } from "@/redux/cartSlice";
 const CartPage = () => {
   const dispatch = useDispatch();
   const { items, total } = useSelector((state: RootState) => state.cart);
-
+  console.log("Cart items:", items);
+  console.log("Cart total:", total);
   const handleQuantityChange = (id: number, newQuantity: number) => {
     if (newQuantity > 0) {
       dispatch(updateQuantity({ id, quantity: newQuantity }));
